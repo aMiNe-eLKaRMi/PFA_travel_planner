@@ -1,0 +1,131 @@
+
+🧳 Travel Planner API
+
+This project is a simple Flask-based REST API that allows users to register, log in, and generate travel plans based on city and budget.
+
+=========================
+🚀 Getting Started
+=========================
+
+1. Clone the repository
+
+    git clone https://github.com/your-username/your-repo.git
+    cd your-repo
+
+2. Create and activate a virtual environment
+
+    python -m venv venv
+
+    - On Linux/Mac:
+        source venv/bin/activate
+
+    - On Windows:
+        .\venv\Scripts\activate
+
+3. Install dependencies
+
+    pip install -r requirements.txt
+
+4. Run the application
+
+    flask run --host=0.0.0.0 --port=5000
+
+
+=========================
+🧪 API Endpoints (Tested with Postman)
+=========================
+
+1. 🔐 Authentication
+
+a. Register
+
+POST /api/auth/register
+
+Headers:
+    Content-Type: application/json
+
+Body:
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+
+Success Response:
+{
+  "msg": "User created successfully"
+}
+
+-------------------------
+
+b. Login
+
+POST /api/auth/login
+
+Headers:
+    Content-Type: application/json
+
+Body:
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+
+Success Response:
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+
+
+2. 🗺️ Plan Management
+
+a. Initialize Plan
+
+POST /api/plan/init
+
+Headers:
+    Content-Type: application/json
+    Authorization: Bearer <JWT_TOKEN>
+
+Body:
+{
+  "city": "Paris",
+  "budget": 1500
+}
+
+Success Response:
+{
+  "plan_id": "667a1b2c3d4e5f6a7b8c9d0e",
+  "hotels": [
+    {
+      "name": "Hôtel Eiffel Tower",
+      "address": "18 Avenue de Suffren, Paris"
+    }
+  ]
+}
+
+-------------------------
+
+b. Finalize Plan
+
+POST /api/plan/finalize
+
+Headers:
+    Content-Type: application/json
+    Authorization: Bearer <JWT_TOKEN>
+
+Body:
+{
+  "plan_id": "667a1b2c3d4e5f6a7b8c9d0e",
+  "selected_hotel": "Hôtel Eiffel Tower",
+  "days": 5
+}
+
+Success Response:
+{
+  "itinerary": "🗓️ Jour 1\n08:00 - Petit-déjeuner à l'hôtel..."
+}
+
+=========================
+📬 License
+
+This project is licensed under the MIT License.
