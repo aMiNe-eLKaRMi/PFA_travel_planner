@@ -26,3 +26,10 @@ class TravelPlan:
             {"_id": ObjectId(plan_id)},
             {"$set": update_data}
         )
+    @staticmethod
+    def delete(plan_id):
+        return mongo.db.plans.delete_one({"_id": ObjectId(plan_id)})
+
+    @staticmethod
+    def find_by_user_id(user_id):
+        return list(mongo.db.plans.find({"user_id": ObjectId(user_id)}))

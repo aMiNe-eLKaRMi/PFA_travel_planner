@@ -1,4 +1,3 @@
-
 🧳 Travel Planner API
 
 This project is a simple Flask-based REST API that allows users to register, log in, and generate travel plans based on city and budget.
@@ -29,7 +28,6 @@ This project is a simple Flask-based REST API that allows users to register, log
 4. Run the application
 
     flask run --host=0.0.0.0 --port=5000
-
 
 =========================
 🧪 API Endpoints (Tested with Postman)
@@ -75,6 +73,7 @@ Success Response:
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 
+=========================
 
 2. 🗺️ Plan Management
 
@@ -125,7 +124,54 @@ Success Response:
   "itinerary": "🗓️ Jour 1\n08:00 - Petit-déjeuner à l'hôtel..."
 }
 
-=========================
-📬 License
+-------------------------
 
-This project is licensed under the MIT License.
+c. Delete Plan
+
+DELETE /api/plan/<plan_id>
+
+Headers:
+    Authorization: Bearer <JWT_TOKEN>
+
+Success Response:
+{
+  "msg": "Plan deleted"
+}
+
+Error Response (404):
+{
+  "msg": "Plan not found"
+}
+
+-------------------------
+
+d. Get All Plans
+
+GET /api/plan/all
+
+Headers:
+    Authorization: Bearer <JWT_TOKEN>
+
+Success Response:
+[
+  {
+    "_id": "667a1b2c3d4e5f6a7b8c9d0e",
+    "user_id": "667a1b2c3d4e5f6a7b8c9d0f",
+    "city": "Paris",
+    "budget": 1500,
+    "hotels": [...],
+    "selected_hotel": "Hôtel Eiffel Tower",
+    "days": 5,
+    "itinerary": "...",
+    "created_at": "2024-06-23T10:00:00Z"
+  }
+]
+
+=========================
+⚠️ Important Notes
+=========================
+
+- Always include JWT token in Authorization header for protected routes
+- MongoDB must be running locally on default port 27017
+- Replace API keys in .env file with your own credentials
+- For production use, disable debug mode (FLASK_DEBUG=0)

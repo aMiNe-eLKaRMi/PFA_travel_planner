@@ -48,3 +48,25 @@ def finalize_plan():
     })
     
     return jsonify({"itinerary": itinerary}), 200
+
+@plan_bp.route('/<plan_id>', methods=['DELETE'])
+@jwt_required()
+def delete_plan(plan_id):
+    plan = TravelPlan.find_by_id(plan_id)
+    
+    if not plan or plan['user_id'] != current_user['_id']:
+        return jsonify({"msg": "Plan not found"}), 404
+    
+    TravelPlan.delete(plan_id)
+    return jsonify({"msg": "Plan deleted"}), 200
+
+@plan_bp.route('/all', methods=['GET'])
+@jwt_required()
+def get_all_plans():
+    plans = TravelPlan.find_by_user_id(current_user['_id'])
+    
+    for plan in plans:
+        plan['_id'] = str(plan['_id'])
+        plan['user_id'] = str(plan['user_id'])
+    
+    return jsonify(plans), 200
