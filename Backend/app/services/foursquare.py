@@ -1,3 +1,4 @@
+# app/services/foursquare.py
 import requests
 import os
 
@@ -8,7 +9,7 @@ def get_hotels(city: str):
         "query": "hotel",
         "near": city,
         "limit": 5,
-        "fields": "name,location"
+        "fields": "name,location,website"
     }
 
     try:
@@ -18,7 +19,8 @@ def get_hotels(city: str):
         return [
             {
                 "name": place.get('name', ''),
-                "address": place.get('location', {}).get('formatted_address', '')
+                "address": place.get('location', {}).get('formatted_address', ''),
+                "website": place.get('website', '')
             } 
             for place in data.get('results', [])
         ]

@@ -1,3 +1,4 @@
+# app/routes/plan.py
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, current_user
 from app.services.foursquare import get_hotels
@@ -35,10 +36,8 @@ def finalize_plan():
         return jsonify({"msg": "Plan not found"}), 404
     
     itinerary = generate_itinerary(
-        city=plan['city'],
-        budget=plan['budget'],
-        hotel=data['selected_hotel'],
-        days=data['days']
+        plan_id=data['plan_id'],
+        hotel=data['selected_hotel']
     )
     
     TravelPlan.update(data['plan_id'], {
